@@ -24,7 +24,6 @@
 
 #include "OpenCanopy.h"
 #include "GuiIo.h"
-#include "GuiApp.h"
 
 typedef struct {
   UINT32 MinX;
@@ -33,7 +32,6 @@ typedef struct {
   UINT32 MaxY;
 } GUI_DRAW_REQUEST;
 
-extern GUI_VOLUME_PICKER mBootPicker;
 //
 // I/O contexts
 //
@@ -1188,7 +1186,7 @@ GuiDrawLoop (
       //
 
       //reset time out time whenever we have a key press
-      MyStartTime = mStartTsc;
+      //MyStartTime = mStartTsc;
       Status = GuiKeyRead (mKeyContext, &InputKey);
       if (!EFI_ERROR (Status)) {
         ASSERT (DrawContext->Screen->KeyEvent != NULL);
