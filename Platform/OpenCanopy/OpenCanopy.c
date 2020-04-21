@@ -32,6 +32,7 @@ typedef struct {
   UINT32 MaxY;
 } GUI_DRAW_REQUEST;
 
+extern GUI_VOLUME_PICKER mBootPicker;
 //
 // I/O contexts
 //
@@ -1109,6 +1110,13 @@ GuiDrawLoop (
 
   CONST LIST_ENTRY    *AnimEntry;
   CONST GUI_ANIMATION *Animation;
+  STATIC UINT64 MyStartTime = 0;
+  STATIC UINT64 MyFirstLoop = 0;
+
+  if(MyFirstLoop == 0){
+    MyFirstLoop = 1;
+    MyStartTime = AsmReadTsc ();
+  }
 
   ASSERT (DrawContext != NULL);
 
@@ -1177,6 +1185,9 @@ GuiDrawLoop (
       //
       // Process key events. Only allow one key at a time for now.
       //
+
+      //reset time out time whenever we have a key press
+      MyStartTime = mStartTsc;
       Status = GuiKeyRead (mKeyContext, &InputKey);
       if (!EFI_ERROR (Status)) {
         ASSERT (DrawContext->Screen->KeyEvent != NULL);
@@ -1218,6 +1229,13 @@ GuiDrawLoop (
     //
     GuiFlushScreen (DrawContext);
 
+    //If we have clock more than 8 billion ticks (aprpoximately to ~2 seconds at 4 ghz?)
+    if((mStartTsc - MyStartTime) > 12000000000){
+      //let auto time out and break out of this DRAWGUI loop
+      //need to assign the boot entry to the default entry
+      DrawContext->GuiContext->BootEntry = mBootPicker->SelectedEntry->Context;
+      break;
+    }
     //UINT64 EndTsc = AsmReadTsc ();
     //DEBUG ((DEBUG_ERROR, "Loop delta TSC: %lld, target: %lld\n", EndTsc - StartTsc, mDeltaTscTarget));
   } while (!DrawContext->ExitLoop (DrawContext->GuiContext));

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "ocstoragelib.h": "c",
+        "opencanopy.h": "c"
+    }
+}
