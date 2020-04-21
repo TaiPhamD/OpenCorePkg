@@ -728,7 +728,7 @@ CopyLabel (
 RETURN_STATUS
 BootPickerEntriesAdd (
   IN OC_PICKER_CONTEXT              *Context,
-  IN CONST BOOT_PICKER_GUI_CONTEXT  *GuiContext,
+  IN BOOT_PICKER_GUI_CONTEXT  *GuiContext,
   IN OC_BOOT_ENTRY                  *Entry,
   IN BOOLEAN                        Default
   )
@@ -953,6 +953,7 @@ BootPickerEntriesAdd (
 
   if (Default) {
     InternalBootPickerSelectEntry (&mBootPicker, VolumeEntry);
+    GuiContext->BootEntry = Entry;
   }
 
   return RETURN_SUCCESS;

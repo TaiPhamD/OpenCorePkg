@@ -1229,7 +1229,7 @@ GuiDrawLoop (
     GuiFlushScreen (DrawContext);
 
     //If we have clock more than 8 billion ticks (aprpoximately to ~2 seconds at 4 ghz?)
-    if((mStartTsc - MyStartTime) > 12000000000){
+    if((mStartTsc - MyStartTime) > 36000000000){
       //let auto time out and break out of this DRAWGUI loop
       //need to assign the boot entry to the default entry
       
