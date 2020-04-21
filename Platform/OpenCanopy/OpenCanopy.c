@@ -24,6 +24,7 @@
 
 #include "OpenCanopy.h"
 #include "GuiIo.h"
+#include "GuiApp.h"
 
 typedef struct {
   UINT32 MinX;
@@ -1233,7 +1234,9 @@ GuiDrawLoop (
     if((mStartTsc - MyStartTime) > 12000000000){
       //let auto time out and break out of this DRAWGUI loop
       //need to assign the boot entry to the default entry
-      DrawContext->GuiContext->BootEntry = mBootPicker->SelectedEntry->Context;
+      
+      
+      //(OC_BOOT_ENTRY *)(DrawContext->GuiContext->BootEntry) = mBootPicker.SelectedEntry->Context;
       break;
     }
     //UINT64 EndTsc = AsmReadTsc ();

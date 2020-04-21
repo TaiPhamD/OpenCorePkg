@@ -130,25 +130,6 @@ struct GUI_DRAWING_CONTEXT_ {
   UINT8                Scale;
 };
 
-typedef struct {
-  GUI_OBJ_CHILD         Hdr;
-  CONST GUI_IMAGE       *ClickImage;
-  CONST GUI_IMAGE       *CurrentImage;
-} GUI_OBJ_CLICKABLE;
-
-typedef struct {
-  GUI_OBJ_CHILD   Hdr;
-  GUI_IMAGE       EntryIcon;
-  GUI_IMAGE       Label;
-  VOID            *Context;
-  BOOLEAN         CustomIcon;
-} GUI_VOLUME_ENTRY;
-
-typedef struct {
-  GUI_OBJ_CHILD    Hdr;
-  GUI_VOLUME_ENTRY *SelectedEntry;
-} GUI_VOLUME_PICKER;
-
 RETURN_STATUS
 GuiPngToImage (
   OUT GUI_IMAGE  *Image,
