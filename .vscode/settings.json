@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "guiapp.h": "c"
+        "guiapp.h": "c",
+        "timerlib.h": "c"
     }
 }

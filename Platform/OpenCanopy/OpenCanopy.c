@@ -1137,7 +1137,7 @@ GuiDrawLoop (
   //STATIC BOOLEAN logOnce = 0;
   if(StartTimer == 0){
     //only read start time on init
-    StartTimer = GetTimeInNanoSecond(GetPerformanceCounter());
+    StartTimer = AsmReadTsc ();
   }
 
   mStartTsc = AsmReadTsc ();
@@ -1207,8 +1207,9 @@ GuiDrawLoop (
         //
         // If detect key press then disable menu timeout
         //
-        DisableTimer = 1;
-
+        if(!DisableTimer){
+          DisableTimer = 1;
+        }
         //
         // HACK: MSVC complains about unreachable code.
         //
@@ -1243,9 +1244,9 @@ GuiDrawLoop (
     //
     // Exit early if reach timer timeout and timer isn't disabled
     //
-    UINT64 CurrTime = GetTimeInNanoSecond(GetPerformanceCounter());
+    UINT64 ElapsedTime = GetTimeInNanoSecond(mStartTsc - StartTimer)/1000000000;
     OC_PICKER_CONTEXT* mContext = (OC_PICKER_CONTEXT*)Context;
-    if(((CurrTime - StartTimer)/1000000000) > mContext->TimeoutSeconds && !DisableTimer){
+    if( ElapsedTime >= mContext->TimeoutSeconds && !DisableTimer){
       mGuiContext.BootEntry = mBootPicker.SelectedEntry->Context;
       break;
     }
