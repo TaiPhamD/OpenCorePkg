@@ -65,7 +65,7 @@ OcShowMenuByOc (
     }
   }
 
-  GuiDrawLoop (&mDrawContext);
+  GuiDrawLoop (&mDrawContext, Context);
   ASSERT (mGuiContext.BootEntry != NULL || mGuiContext.Refresh);
 
   *ChosenBootEntry = mGuiContext.BootEntry;

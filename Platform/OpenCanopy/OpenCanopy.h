@@ -235,7 +235,8 @@ GuiViewInitialize (
 
 VOID
 GuiDrawLoop (
-  IN OUT GUI_DRAWING_CONTEXT  *DrawContext
+  IN OUT GUI_DRAWING_CONTEXT  *DrawContext,
+  IN     VOID                 *Context OPTIONAL
   );
 
 EFI_STATUS
