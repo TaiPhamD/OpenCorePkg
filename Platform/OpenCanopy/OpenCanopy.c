@@ -36,9 +36,12 @@ typedef struct {
   UINT32 MaxY;
 } GUI_DRAW_REQUEST;
 
-// Context for auto starting the default picked volume
+//
+// Variables to assign the picked volume automatically once menu times out
+//
 extern BOOT_PICKER_GUI_CONTEXT mGuiContext;
 extern GUI_VOLUME_PICKER mBootPicker;
+
 //
 // I/O contexts
 //
@@ -1242,11 +1245,11 @@ GuiDrawLoop (
 
 
     //
-    // Exit early if reach timer timeout and timer isn't disabled
+    // Exit early if reach timer timeout and timer isn't disabled due to key event
     //
-    UINT64 ElapsedTime = GetTimeInNanoSecond(mStartTsc - StartTimer)/1000000000;
-    OC_PICKER_CONTEXT* mContext = (OC_PICKER_CONTEXT*)Context;
-    if( ElapsedTime >= mContext->TimeoutSeconds && !DisableTimer){
+    UINT64 ElapsedTime = DivU64x64Remainder(GetTimeInNanoSecond(mStartTsc - StartTimer),1000000000, NULL);
+    OC_PICKER_CONTEXT* PickerContext = (OC_PICKER_CONTEXT*)Context;
+    if( ElapsedTime >= PickerContext->TimeoutSeconds && !DisableTimer){
       mGuiContext.BootEntry = mBootPicker.SelectedEntry->Context;
       break;
     }

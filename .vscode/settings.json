@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "guiapp.h": "c",
-        "timerlib.h": "c"
+        "timerlib.h": "c",
+        "ocbootmanagementlib.h": "c"
     }
 }
